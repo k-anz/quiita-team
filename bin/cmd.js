@@ -41,9 +41,15 @@ if(opt.options.outdir) {
 
 var data;
 try {
-	var articles = fs.readdirSync(`${opt.argv[0]}/articles`, 'utf-8')
-	var groups = fs.readdirSync(`${opt.argv[0]}/groups`, 'utf-8')
-	var projects = fs.readdirSync(`${opt.argv[0]}/projects`, 'utf-8')
+	// articles
+	var articlesFileNames = fs.readdirSync(`${opt.argv[0]}/articles`, 'utf-8')
+	var articles = articlesFileNames.forEach((f) => {fs.readFileSync(f, 'utf-8')});
+	// groups
+	var groupsFileNames = fs.readdirSync(`${opt.argv[0]}/groups`, 'utf-8')
+	var groups = groupsFileNames.forEach((f) => {fs.readFileSync(f, 'utf-8')});
+	// projects
+	var projectsFileNames = fs.readdirSync(`${opt.argv[0]}/projects`, 'utf-8')
+	var projects = projectsFileNames.forEach((f) => {fs.readFileSync(f, 'utf-8')});
 	// 一度旧式のデータ形式に戻す
 	data = JSON.stringify({ articles, groups, projects });
 } catch(e) {
