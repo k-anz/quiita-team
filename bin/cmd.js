@@ -41,18 +41,16 @@ if(opt.options.outdir) {
 
 var data;
 try {
-	// articles
 	var articlesFileNames = fs.readdirSync(`${opt.argv[0]}/articles`, 'utf-8')
-	var articles = articlesFileNames.forEach((f) => {fs.readFileSync(`${opt.argv[0]}/articles/${f}`, 'utf-8')});
-	// groups
+	var articles = articlesFileNames.map((f) => {fs.readFileSync(`${opt.argv[0]}/articles/${f}`, 'utf-8')});
 	var groupsFileNames = fs.readdirSync(`${opt.argv[0]}/groups`, 'utf-8')
-	var groups = groupsFileNames.forEach((f) => {fs.readFileSync(`${opt.argv[0]}/groups/${f}`, 'utf-8')});
-	// projects
+	var groups = groupsFileNames.map((f) => {fs.readFileSync(`${opt.argv[0]}/groups/${f}`, 'utf-8')});
 	var projectsFileNames = fs.readdirSync(`${opt.argv[0]}/projects`, 'utf-8')
-	var projects = projectsFileNames.forEach((f) => {fs.readFileSync(`${opt.argv[0]}/projects/${f}`, 'utf-8')});
+	var projects = projectsFileNames.map((f) => {fs.readFileSync(`${opt.argv[0]}/projects/${f}`, 'utf-8')});
 	// 一度旧式のデータ形式に戻す
 	data = JSON.stringify({ articles, groups, projects });
 } catch(e) {
+	console.log(e); // TODO delete
 	console.log("Failed to load file: " + opt.argv[0]);
 	process.exit(1);
 }
