@@ -41,7 +41,10 @@ if(opt.options.outdir) {
 
 var data;
 try {
-	data = fs.readFileSync(opt.argv[0],'utf-8');
+	var articles = fs.readdirSync(`${opt.argv[0]}/articles`, 'utf-8')
+	var groups = fs.readdirSync(`${opt.argv[0]}/groups`, 'utf-8')
+	var projects = fs.readdirSync(`${opt.argv[0]}/projects`, 'utf-8')
+	data = { articles, groups, projects };
 } catch(e) {
 	console.log("Failed to load file: " + opt.argv[0]);
 	process.exit(1);
