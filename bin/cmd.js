@@ -42,11 +42,14 @@ if(opt.options.outdir) {
 var data;
 try {
 	var articlesFileNames = fs.readdirSync(`${opt.argv[0]}/articles`, 'utf-8')
-	var articles = articlesFileNames.map((f) => {return JSON.parse(fs.readFileSync(`${opt.argv[0]}/articles/${f}`, 'utf-8'))});
+	var articlesStr = articlesFileNames.filter((f) => { return f.indexOf('.json') !== -1}).map((f) => {return fs.readFileSync(`${opt.argv[0]}/articles/${f}`, 'utf-8')});
+	var articles = articlesStr.map((f) => {return JSON.parse(f.trim())});
 	var groupsFileNames = fs.readdirSync(`${opt.argv[0]}/groups`, 'utf-8')
-	var groups = groupsFileNames.map((f) => {return JSON.parse(fs.readFileSync(`${opt.argv[0]}/groups/${f}`, 'utf-8'))});
+	var groupsStr = groupsFileNames.filter((f) => { return f.indexOf('.json') !== -1}).map((f) => {return fs.readFileSync(`${opt.argv[0]}/groups/${f}`, 'utf-8')});
+	var groups = groupsStr.map((f) => {return JSON.parse(f)});
 	var projectsFileNames = fs.readdirSync(`${opt.argv[0]}/projects`, 'utf-8')
-	var projects = projectsFileNames.map((f) => {return JSON.parse(fs.readFileSync(`${opt.argv[0]}/projects/${f}`, 'utf-8'))});
+	var projectsStr = projectsFileNames.filter((f) => { return f.indexOf('.json') !== -1}).map((f) => {return fs.readFileSync(`${opt.argv[0]}/projects/${f}`, 'utf-8')});
+	var projects = projectsStr.map((f) => {return JSON.parse(f)});
 	// 一度旧式のデータ形式に戻す
 	data = JSON.stringify({ articles, groups, projects });
 } catch(e) {
